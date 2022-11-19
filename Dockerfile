@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED True
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
-COPY flask-cors ./
+COPY hatsune-mk-api ./
 
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
