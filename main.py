@@ -10,10 +10,14 @@ cors = CORS(app)
 
 @app.route('/retrieve_tweet_embed', methods=['GET'])
 def main():
-    username, status_id = flask.request.args.get('username'), flask.request.args.get('status_id')
-    if username is None or status_id is None:
-        return 'Invalid request - Missing username or status ID', 400
-    url = f"https://publish.twitter.com/oembed?url=https://twitter.com/{username}/status/{status_id}"
+    """
+    Retrieves the HTML embed code for a tweet given its ID.
+    :return: HTML embed code for the tweet
+    """
+    status_id = flask.request.args.get('status_id')
+    if status_id is None:
+        return 'Invalid request - Missing status ID', 400
+    url = f"https://publish.twitter.com/oembed?url=https://twitter.com/_/status/{status_id}"
     response = requests.get(url)
     processed_result = json.loads(response.text)['html']
     return processed_result
